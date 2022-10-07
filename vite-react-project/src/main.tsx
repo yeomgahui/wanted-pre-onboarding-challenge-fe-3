@@ -1,10 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
 import './index.css'
 
+import Root from './pages/Root'
+
+import Router from './lib/Router';
+import Route from './lib/Route';
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <Router>
+    {/* <Route path="/" component={<Root/>}/> */}
+  </Router>
 )
