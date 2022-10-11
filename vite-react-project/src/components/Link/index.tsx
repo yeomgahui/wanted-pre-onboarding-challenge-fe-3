@@ -1,5 +1,5 @@
 import {ReactNode, FC, MouseEventHandler, useContext} from 'react';
-import { routerContext } from '../../lib/Router'
+import { routerContext } from '../../context/RouterContext'
 
 interface LinkProps {
 	to: string;
@@ -7,17 +7,19 @@ interface LinkProps {
 }
 
 const Link: FC<LinkProps> = ({ to, children }) => {
-	//컨텍스트 사용
-	const {changePath} = useContext(routerContext);
 
-	const handleClick: MouseEventHandler<HTMLAnchorElement> = e => {
-		e.preventDefault();
-
-		changePath(to);
-	}
-	return <a href={to} onClick={handleClick}>
-		{children}
-	</a>
+	return (
+		<routerContext.Consumer>
+			{({path,handleChangePath}) => {
+				const handleClick: MouseEventHandler<HTMLAnchorElement> = e => {
+					e.preventDefault();
+					window.history.pushState({}, "", to);
+					handleChangePath(to);
+				}
+				return (<a href={path} onClick={handleClick}>{children}</a>);	
+			}}
+		</routerContext.Consumer>
+	);
 }
 
 export default Link;

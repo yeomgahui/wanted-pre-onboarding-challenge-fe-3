@@ -1,30 +1,37 @@
-import { useState, FC, createContext } from "react"
+import { useState, FC, createContext, useEffect } from "react"
+import {routerContext} from '../../context/RouterContext'
+import {RouterContext} from '../../context/RouterContext'
 
 interface RouterProps {
 	children ?: React.ReactNode;
 }
 
-interface RouterContext {
-	path:string;
-	changePath(value:string): void;
-}
-
 const Router: FC<RouterProps> = ({children}) => {
 	const [path, setPath] = useState(window.location.pathname);
+	console.log('react Router');
 
-	const contextValue = {
+	const contextValue :RouterContext= {
 		path,
-		changePath: setPath,
+		handleChangePath: setPath,
 	}
+	// useEffect(()=> {
+	// 	const onLocationChange = () => {
+	// 		// console.log('onLocationChange')
+	// 	}
+	// 	window.addEventListener('popstate',onLocationChange);
+
+	// 	return () => {
+	// 		window.removeEventListener('popstate', onLocationChange);
+	// 	}
+	// },[]);
 
 	return (
 		<>
-		{children}
+		<routerContext.Provider value={contextValue}>
+			{children}
+		</routerContext.Provider>
 		</>
 	);
 }
 
-// export const routerContext = createContext({path: "", changePath: () => undefined});
-
 export default Router;
-// routerContext.displayName = 'RouterContext';
