@@ -26,11 +26,9 @@ const Router: FC<RouterProps> = ({children}) => {
 	// },[]);
 
 	return (
-		<>
 		<routerContext.Provider value={contextValue}>
 			{children}
 		</routerContext.Provider>
-		</>
 	);
 }
 

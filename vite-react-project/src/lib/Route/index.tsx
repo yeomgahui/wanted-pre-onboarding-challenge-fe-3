@@ -11,13 +11,8 @@ const Route: FC<RouteProps> = ({path, component}) => {
 	const {path:realPath } = useContext(routerContext);
 
 	if(realPath === path){
-		return (
-			<routerContext.Consumer>
-				{path => <>{component}</>}
-			</routerContext.Consumer>
-		);
+		return <>{component}</>
 	}
-
 	return <></>
 
 };
